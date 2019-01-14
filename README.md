@@ -7,13 +7,15 @@ now that we have seen the key map and reduce operators in spark, and also know w
 
 Note: In your Pyspark environment, create a folder `data` and move all the files from the provided `data` folder into it. Jupyter interface doesnt allow moving complete folders. 
 
-## SWBAT
+## Objectives
+
+You will be able to:
 
 * Describe Map-Reduce operation in a big data context
 * Perform basic NLP tasks with a given text corpus
 * Perform basic analysis from the experiment findings towards identifying writing styles
 
-### MAP-REDUCE task:
+## Map-Reduce task
 
 Here is what our problem looks like:
 
