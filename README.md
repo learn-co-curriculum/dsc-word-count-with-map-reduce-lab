@@ -1,5 +1,5 @@
 
-# Word Count with Map-Reduce
+# Word Count with Map-Reduce - Lab
 
 ## Introduction
 
