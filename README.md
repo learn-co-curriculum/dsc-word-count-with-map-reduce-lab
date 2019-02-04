@@ -25,8 +25,8 @@ Here is what our problem looks like:
 
 * Sample application:
 
-    * Analyze web server logs to find popular URLs
-    * Analyze texts for content or style 
+    - Analyze web server logs to find popular URLs
+    - Analyze texts for content or style 
 
 ## Word Count
 
