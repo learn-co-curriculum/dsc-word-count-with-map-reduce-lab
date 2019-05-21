@@ -66,9 +66,9 @@ Here is what it looks like visually:
 
 ### Initialize SparkContext()
 
-Let's import the pyspark module into python environment and initialize a `SparkConext()`
+Let's import the pyspark module into python environment and initialize a `SparkContext()`
 
-- Initliaze a local spark context
+- Initialize a local spark context
 
 
 ```python
@@ -148,9 +148,9 @@ for line in lines.collect():
     
 ```
 
-Great, now that we have the complete text files into `lines` RDD, we can easily use map function to break it down further into individual words and parallelize it accoridngly. 
+Great, now that we have the complete text files into `lines` RDD, we can easily use map function to break it down further into individual words and parallelize it accordingly. 
 
-__Note: Paralellization is handled by Spark environment accordnig to available infrastructure and doesnt need any further configuration__.
+__Note: Parallelization is handled by Spark environment according to available infrastructure and doesn't need any further configuration__.
 
 ## The MAP function `map(func)`
 
@@ -158,16 +158,10 @@ The Map function for this example uses keys that are of type String (the words) 
 
 > `(w1, 1), (w2, 1), . . . ,(wn, 1)`
 
-Map Function is the first step in MapReduce Algorithm. It takes input tasks and divides them into smaller sub-tasks and then performs required computation on each sub-task in parallel.
-
 This step performs the following two sub-steps:
 
 * Splitting step takes input DataSet from Source and divide into smaller Sub-Sets.
 * Mapping step takes those smaller Sub-DataSets and perform required action or computation on each Sub-DataSet.
-
-The output of this Map Function is a set of key and value pairs as <Key, Value> as shown in the below diagram.
-
-![](map.jpg)
 
 
 ### Spark Mapping functions
@@ -437,6 +431,5 @@ def wordCount(filename, stopWordlist):
 
 ## Summary 
 
-In this simple exercise , we saw map-reduce in action towards solving a basic NLP task i.e. counting the stop words and keep words frequency of a text corpus. This exercise can be seen as a first step towards text analystics on big data platforms. Here is a summary of above process. 
+In this simple exercise , we saw map-reduce in action towards solving a basic NLP task i.e. counting the stop words and keep words frequency of a text corpus. This exercise can be seen as a first step towards text analytics on big data platforms. After this lab, we will get into more advanced use cases of pyspark, specifically for machine learning applications.
 
-<img src="wc2.png" width=400>
