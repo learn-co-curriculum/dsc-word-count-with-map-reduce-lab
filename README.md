@@ -61,8 +61,8 @@ Here are the steps that we will perform for our problem, under the map reduce fr
 
 * Write the result 
 
-Here is what it looks like visually: 
-![](wc1.png)
+As a reminder, here is what it looks like visually, given the example we used before:
+![](./images/word_count.png)
 
 ### Initialize SparkContext()
 
