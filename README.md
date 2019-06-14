@@ -5,8 +5,6 @@
 
 Now that we have seen the key map and reduce operators in spark, and also know when to use transformation and action operators, we can revisit the word count problem we introduced earlier in the section. In this lab, we will use the methods seen in the coding labs to read a text corpus into spark environment, perform a word count and try basic NLP ideas to get a good grip on how MapReduce performs. 
 
-
-
 ## Objectives
 
 You will be able to:
@@ -30,7 +28,7 @@ Here is what our problem looks like:
 
 ## Word Count
 
-We will illustrate a MapReduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents, and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakspeare and Jane Austin following this motivation. 
+We will illustrate a MapReduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents, and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakespeare and Jane Austin following this motivation. 
 
 Map-Reduce in PySpark provides a practical and efficient way of achieving this goal as it: 
 
