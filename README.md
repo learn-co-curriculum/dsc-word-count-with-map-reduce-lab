@@ -30,7 +30,7 @@ Here is what our problem looks like:
 
 ## Word Count
 
-We will illustrate a MapReduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents, and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakspeare and Jane Austin following this motivation. 
+We will illustrate a MapReduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents, and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakespeare and Jane Austin following this motivation. 
 
 Map-Reduce in PySpark provides a practical and efficient way of achieving this goal as it: 
 
@@ -437,4 +437,3 @@ def wordCount(filename, stopWordlist):
 ## Summary 
 
 In this simple exercise, we saw map-reduce in action towards solving a basic NLP task i.e. counting the stop words and keep words frequency of a text corpus. This exercise can be seen as the first step towards text analytics on big data platforms. After this lab, we will get into more advanced use cases of pyspark, specifically for machine learning applications.
-
