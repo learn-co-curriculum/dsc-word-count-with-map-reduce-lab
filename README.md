@@ -115,7 +115,7 @@ lines
 
 
 
-    text/hamlet.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+    text/hamlet.txt MapPartitionsRDD[3] at textFile at NativeMethodAccessorImpl.java:0
 
 
 
@@ -348,7 +348,7 @@ Stop words can be useful for recognizing the style of an author. Removing stop w
 
 
 ```python
-# show sto pword frequency in the output
+# show stop word frequency in the output
 
 stopWordList = ['', 'the','a','in','of','on','at','for','by','i','you','me'] 
 stopWords = freqWords.filter(lambda x:  x[0] in stopWordList) 
