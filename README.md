@@ -95,8 +95,14 @@ set a file path variable `file` to the location of `text/hamlet.txt`
 
 # Code here 
 
-
 ```
+
+
+
+
+    'text/hamlet.txt'
+
+
 
 
 ```python
@@ -131,6 +137,13 @@ The `textFile(path)` method reads a text file from the HDFS/local file system/an
 ```
 
 
+
+
+    text/hamlet.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+
+
+
+
 ```python
 # __SOLUTION__ 
 # Read the text file into an RDD using sc.textFile()
@@ -144,7 +157,7 @@ lines
 
 
 
-    text/hamlet.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+    text/hamlet.txt MapPartitionsRDD[3] at textFile at NativeMethodAccessorImpl.java:0
 
 
 
@@ -154,10 +167,12 @@ The text file has been written in a "line-by-line" manner into the RDD. We can a
 
 
 ```python
-
 # Code here 
-
 ```
+
+        But even then the morning cock crew loud,
+      Ham. Indeed, upon my sword, indeed.
+
 
 
 ```python
@@ -244,6 +259,13 @@ Previously, we saw that:
 ```
 
 
+
+
+    ['', '1604', '', '', 'THE', 'TRAGEDY', 'OF', 'HAMLET,', 'PRINCE', 'OF']
+
+
+
+
 ```python
 # __SOLUTION__ 
 # split the lines into words based on blanks ' ' and show ten elements from the top 
@@ -275,8 +297,23 @@ Map doesn't break up the output of the lambda expression, meaning that the tuple
 
 
 # Code here 
-
 ```
+
+
+
+
+    [('', 1),
+     ('1604', 1),
+     ('', 1),
+     ('', 1),
+     ('THE', 1),
+     ('TRAGEDY', 1),
+     ('OF', 1),
+     ('HAMLET,', 1),
+     ('PRINCE', 1),
+     ('OF', 1)]
+
+
 
 
 ```python
@@ -318,8 +355,23 @@ As we can see from the output above, the text contains words in capital as well 
 
 
 # Code here 
-
 ```
+
+
+
+
+    [('', 1),
+     ('1604', 1),
+     ('', 1),
+     ('', 1),
+     ('the', 1),
+     ('tragedy', 1),
+     ('of', 1),
+     ('hamlet,', 1),
+     ('prince', 1),
+     ('of', 1)]
+
+
 
 
 ```python
@@ -360,12 +412,28 @@ Here, the lambda has two arguments (x and y) that are added.
 
 
 ```python
-# USe reduceByKey with tuplesLCase to add all values under same keys - take 10
+# Use reduceByKey with tuplesLCase to add all values under same keys - take 10
 
 
 # Code here 
 
 ```
+
+
+
+
+    [('', 20383),
+     ('1604', 1),
+     ('tragedy', 1),
+     ('of', 670),
+     ('prince', 2),
+     ('denmark', 10),
+     ('shakespeare', 1),
+     ('dramatis', 1),
+     ('claudius,', 2),
+     ('king', 43)]
+
+
 
 
 ```python
@@ -408,8 +476,23 @@ For this step, we shall use the `RDD.filter(func)` where func is a lambda functi
 
 # Code here 
 
-
 ```
+
+
+
+
+    [('', 20383),
+     ('of', 670),
+     ('denmark', 10),
+     ('king', 43),
+     ('son', 11),
+     ('polonius,', 6),
+     ('horatio,', 15),
+     ('hamlet.', 25),
+     ('courtier.', 7),
+     ('rosencrantz,', 6)]
+
+
 
 
 ```python
@@ -459,9 +542,27 @@ Stop words can be useful for recognizing the style of an author. Removing stop w
 ```
 
 
+
+
+    [('', 20383),
+     ('of', 670),
+     ('at', 87),
+     ('i', 523),
+     ('in', 420),
+     ('the', 1083),
+     ('by', 111),
+     ('a', 540),
+     ('you', 433),
+     ('for', 231),
+     ('me', 144),
+     ('on', 108)]
+
+
+
+
 ```python
 # __SOLUTION__ 
-# show sto pword frequency in the output
+# show stop word frequency in the output
 
 stopWordList = ['', 'the','a','in','of','on','at','for','by','i','you','me'] 
 stopWords = freqWords.filter(lambda x:  x[0] in stopWordList) 
@@ -499,6 +600,22 @@ stopWords.collect()
 # Code here 
 
 ```
+
+
+
+
+    [('and', 939),
+     ('to', 727),
+     ('my', 519),
+     ('ham.', 358),
+     ('that', 343),
+     ('is', 327),
+     ('it', 327),
+     ('his', 302),
+     ('not', 274),
+     ('with', 267)]
+
+
 
 
 ```python
