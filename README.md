@@ -86,8 +86,14 @@ set a file path variable `file` to the location of `text/hamlet.txt`
 
 # Code here 
 
-
 ```
+
+
+
+
+    'text/hamlet.txt'
+
+
 
 ## Read and Split text file contents into RDD - `sc.textFile()`
 
@@ -104,16 +110,25 @@ The `textFile(path)` method reads a text file from the HDFS/local file system/an
 
 ```
 
+
+
+
+    text/hamlet.txt MapPartitionsRDD[1] at textFile at NativeMethodAccessorImpl.java:0
+
+
+
 The text file has been written in a "line-by-line" manner into the RDD. We can access any given entry using simple indexing. 
 
 - Print a few sample lines from the `lines` RDD
 
 
 ```python
-
 # Code here 
-
 ```
+
+        But even then the morning cock crew loud,
+      Ham. Indeed, upon my sword, indeed.
+
 
 Similarly, we can also print the whole document, lines by line. 
 
@@ -178,6 +193,13 @@ Previously, we saw that:
 ```
 
 
+
+
+    ['', '1604', '', '', 'THE', 'TRAGEDY', 'OF', 'HAMLET,', 'PRINCE', 'OF']
+
+
+
+
 ### Create a Tuple as (k,v)
 
 - Map each word to a tuple of (word, 1).
@@ -191,8 +213,23 @@ Map doesn't break up the output of the lambda expression, meaning that the tuple
 
 
 # Code here 
-
 ```
+
+
+
+
+    [('', 1),
+     ('1604', 1),
+     ('', 1),
+     ('', 1),
+     ('THE', 1),
+     ('TRAGEDY', 1),
+     ('OF', 1),
+     ('HAMLET,', 1),
+     ('PRINCE', 1),
+     ('OF', 1)]
+
+
 
 ### Change the words to lower case to ensure integrity
 
@@ -207,8 +244,23 @@ As we can see from the output above, the text contains words in capital as well 
 
 
 # Code here 
-
 ```
+
+
+
+
+    [('', 1),
+     ('1604', 1),
+     ('', 1),
+     ('', 1),
+     ('the', 1),
+     ('tragedy', 1),
+     ('of', 1),
+     ('hamlet,', 1),
+     ('prince', 1),
+     ('of', 1)]
+
+
 
 ## REDUCE Function
 The Reduce function’s argument is a pair consisting of a key and its list of associated values as the pairs created above. The output of the Reduce function is a sequence of zero or more key-value pairs. These key-value pairs can be of a type different from those sent from Map tasks to Reduce tasks, but often they are the same type.
@@ -223,12 +275,28 @@ Here, the lambda has two arguments (x and y) that are added.
 
 
 ```python
-# USe reduceByKey with tuplesLCase to add all values under same keys - take 10
+# Use reduceByKey with tuplesLCase to add all values under same keys - take 10
 
 
 # Code here 
 
 ```
+
+
+
+
+    [('', 20383),
+     ('1604', 1),
+     ('tragedy', 1),
+     ('of', 670),
+     ('prince', 2),
+     ('denmark', 10),
+     ('shakespeare', 1),
+     ('dramatis', 1),
+     ('claudius,', 2),
+     ('king', 43)]
+
+
 
 ### Filter rare words
 
@@ -246,8 +314,23 @@ For this step, we shall use the `RDD.filter(func)` where func is a lambda functi
 
 # Code here 
 
-
 ```
+
+
+
+
+    [('', 20383),
+     ('of', 670),
+     ('denmark', 10),
+     ('king', 43),
+     ('son', 11),
+     ('polonius,', 6),
+     ('horatio,', 15),
+     ('hamlet.', 25),
+     ('courtier.', 7),
+     ('rosencrantz,', 6)]
+
+
 
 ### List  of stop words
 
@@ -270,6 +353,24 @@ Stop words can be useful for recognizing the style of an author. Removing stop w
 
 ```
 
+
+
+
+    [('', 20383),
+     ('of', 670),
+     ('at', 87),
+     ('i', 523),
+     ('in', 420),
+     ('the', 1083),
+     ('by', 111),
+     ('a', 540),
+     ('you', 433),
+     ('for', 231),
+     ('me', 144),
+     ('on', 108)]
+
+
+
 ### List of keep words
 
 - Modify the filter operation above to keep all the words found in the text **except** the stop words. 
@@ -282,6 +383,22 @@ Stop words can be useful for recognizing the style of an author. Removing stop w
 # Code here 
 
 ```
+
+
+
+
+    [('and', 939),
+     ('to', 727),
+     ('my', 519),
+     ('ham.', 358),
+     ('that', 343),
+     ('is', 327),
+     ('it', 327),
+     ('his', 302),
+     ('not', 274),
+     ('with', 267)]
+
+
 
 ### Putting it all together 
 
