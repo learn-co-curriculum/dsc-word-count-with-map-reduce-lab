@@ -1,19 +1,22 @@
 
-# Word Count with Map-Reduce - Lab
+# Word Count with MapReduce - Lab
 
 ## Introduction
 
-Now that we have seen the key map and reduce operators in spark, and also know when to use transformation and action operators, we can revisit the word count problem we introduced earlier in the section. In this lab, we will use the methods seen in the coding labs to read a text corpus into the spark environment, perform a word count, and try basic NLP ideas to get a good grip on how Map-Reduce performs. 
+Now that we have seen the key map and reduce operators in Spark, and also know when to use transformation and action operators, we can revisit the word count problem we introduced earlier in the section. In this lab, we will read a text corpus into the Spark environment, perform a word count, and try basic NLP ideas to get a good grip on how MapReduce performs. 
 
 ## Objectives
 
-You will be able to:
+In this lab you will:
 
-* Describe the Map-Reduce operation in a big data context
-* Perform basic NLP tasks with a given text corpus
-* Perform basic analysis using the experimental findings towards identifying writing styles
+- Apply the map(func) transformation to a given function on all elements of an RDD in different partitions 
+- Apply a map transformation for all elements of an RDD 
+- Compare the difference between a transformation and an action within RDDs 
+- Use collect(), count(), and take() actions to trigger spark transformations 
+- Use filter to select data that meets certain specifications within an RDD 
+- Use Spark and the MapReduce framework to complete a full parallelized word count problem 
 
-## Map-Reduce task
+## MapReduce task
 
 Here is what our problem looks like:
 
@@ -28,9 +31,9 @@ Here is what our problem looks like:
 
 ## Word Count
 
-We will illustrate a Map-Reduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakespeare and Jane Austin following this motivation. 
+We will illustrate a MapReduce computation for counting the number of occurrences for each word in a text corpus. In this example, the input file is a repository of documents and each document is an element. We shall count the frequency of stop words for __style identification__ as stop words might have unique features which can potentially describe the author's writing style based on their use of stop words while writing. We shall look at some texts by Shakespeare and Jane Austin following this motivation. 
 
-Map-Reduce in PySpark provides a practical and efficient way of achieving this goal as it: 
+MapReduce in PySpark provides a practical and efficient way of achieving this goal as it: 
 
 * works if the file is too large for memory
 
@@ -39,9 +42,9 @@ Map-Reduce in PySpark provides a practical and efficient way of achieving this g
 * is naturally parallelizable
 
 
-### Map-Reduce Framework
+### MapReduce Framework
 
-Here are the steps that we will perform for our problem, under the Map-Reduce framework. 
+Here are the steps that we will perform for our problem, under the MapReduce framework:  
 
 * Sequentially read a lot of data (text files in this case)
 
@@ -50,7 +53,7 @@ Here are the steps that we will perform for our problem, under the Map-Reduce fr
     * Extract something you care about
 
 
-* Group by key: Sort and Shuffle
+* Group by key: Sort and shuffle
 
 
 * Reduce:
@@ -64,15 +67,13 @@ As a reminder, here is what it looks like visually, given the example we used be
 
 ### Initialize SparkContext()
 
-First, import the pyspark module into this python environment and initialize a `SparkContext()`
-
+- First, import the `pyspark` module into this Python environment and initialize a `SparkContext()` 
 - Initialize a local spark context
 
 
 ```python
 # Start a local SparkContext
 
-# Code here 
 
 ```
 
@@ -85,15 +86,11 @@ pyspark
 sc = pyspark.SparkContext('local[*]') # [*] represents a local context i.e. no cluster
 ```
 
-To test our code, we shall start with a single text file, hamlet.txt. First, we will set a file path variable.
-
-set a file path variable `file` to the location of `text/hamlet.txt`
+To test our code, start with a single text file, `'hamlet.txt'`. First, set a file path variable `file` to the location of `'text/hamlet.txt'`. 
 
 
 ```python
 # Set a path variable for data 
-
-# Code here 
 
 ```
 
@@ -123,17 +120,15 @@ file
 
 ## Read and Split text file contents into RDD - `sc.textFile()`
 
-Previously we used parallelization to read an RDD from a python list. Here we shall read the text file into Spark RDDs by using `sc.textFile()` method for loading the text file into the `lines` RDD. The documentation on RDDs can be found [here!!](https://spark.apache.org/docs/latest/rdd-programming-guide.html)
+Previously we used parallelization to read an RDD from a Python list. Here we shall read the text file into Spark RDDs by using `sc.textFile()` method for loading the text file into the `lines` RDD. The documentation on RDDs can be found [here!!](https://spark.apache.org/docs/latest/rdd-programming-guide.html)
 
-The `textFile(path)` method reads a text file from the HDFS/local file system/any Hadoop supported file system, into the number of partitions specified and returns it as an RDD of strings. In order to view the contents of the RDD, we will use the `RDD.collect()` method since calling the RDD by name will not return the contents, only the object type and relevant information 
+The `textFile(path)` method reads a text file from the HDFS/local file system/any Hadoop supported file system, into the number of partitions specified and returns it as an RDD of strings. In order to view the contents of the RDD, we will use the `RDD.collect()` method since calling the RDD by name will not return the contents, only the object type and relevant information. 
 
 
 ```python
 # Read the text file into an RDD using sc.textFile()
-
-
-# Code here 
-
+lines = None
+lines
 ```
 
 
@@ -147,7 +142,6 @@ The `textFile(path)` method reads a text file from the HDFS/local file system/an
 ```python
 # __SOLUTION__ 
 # Read the text file into an RDD using sc.textFile()
-
 lines = sc.textFile(file)
 lines
 
@@ -194,9 +188,6 @@ Similarly, we can also print the whole document, lines by line.
 # Print the text, line-by-line
 # This will output the whole of hamlet text, one line at a time. 
 
-
-# Code here 
-
 ```
 
 
@@ -206,7 +197,7 @@ Similarly, we can also print the whole document, lines by line.
 # This will output the whole of hamlet text, one line at a time. 
 
 for line in lines.collect():
-    print (line)
+    print(line)
     
 ```
 
@@ -222,15 +213,15 @@ The Map function for this example uses keys that are of type string (the words) 
 
 This step performs the following two sub-steps:
 
-* A splitting step that takes the input data set from the source and divides it into smaller sub-sets.
-* A mapping step that takes those smaller sub-sets and performs an action or computation on each sub-set.
+* A splitting step that takes the input dataset from the source and divides it into smaller subsets 
+* A mapping step that takes those smaller subsets and performs an action or computation on each subset 
 
 
 ### Spark Mapping functions
 
 Previously, we saw that:
 
-- `map(func)` returns a new distributed data set formed by passing each element of the source through a function `func`.
+- `map(func)` returns a new distributed dataset formed by passing each element of the source through a function `func`.
 
 - `flatMap(func)` maps each input item to 0 or more output items (so `func` should return a seq rather than a single item).
 
@@ -238,13 +229,13 @@ Previously, we saw that:
 
 ---
 
-* Use `RDD.flatMap` to split the lines by whitespace and collect into one flat RDD.
+* Use `RDD.flatMap()` to split the lines by whitespace and collect into one flat RDD.
 
-* The transformation is defined in the lambda expression, where the input x is defined as producing the result of `x.split(' ')`.
+* The transformation is defined in the lambda expression, where the input `x` is defined as producing the result of `x.split(' ')`.
 
-* Use the `RDD.take(n)` method to pick n words from the top of the sequence. n=10
+* Use the `RDD.take(n)` method to pick `n` words from the top of the sequence. 
 
-`flatMap()` breaks the output of the lambda function into individual RDD elements (as opposed to map).
+* Use `flatMap()` to break the output of the lambda function into individual RDD elements. 
 
 
 
@@ -402,11 +393,11 @@ tuplesLCase.take(10)
 ## REDUCE Function
 The Reduce function’s argument is a pair consisting of a key and its list of associated values as the pairs created above. The output of the Reduce function is a sequence of zero or more key-value pairs. These key-value pairs can be of a type different from those sent from Map tasks to Reduce tasks, but often they are the same type.
 
-We shall refer to the application of the Reduce function to a single key and its associated list of values as a reducer.
+We will refer to the application of the Reduce function to a single key and its associated list of values as a reducer.
 
 ![](reduce.png)
 
-- Use `RDD.reduceByKey` to add up all the words. the new k,v pairs would have the word as a key and the number of occurrences as a value. 
+- Use `RDD.reduceByKey()` to add up all the words. the new (k, v) pairs would have the word as a key and the number of occurrences as a value. 
 
 Here, the lambda has two arguments (x and y) that are added.
 
@@ -465,9 +456,9 @@ wordCount.take(10)
 Following the standard NLP approach, we can add a filtering step to remove all words which appear less than some thershaold value, say, with less than 5 occurrences. 
 
 This can be useful to identify common topics between documents, where very rare words can be misleading. 
-For this step, we shall use the `RDD.filter(func)` where func is a lambda function that filters out any word which appears less than or equal to 5 times. You may also use a separate function to achieve this. 
+For this step, we can use `RDD.filter(func)` where `func` is a lambda function that filters out any word which appears less than or equal to 5 times. You may also use a separate function to achieve this. 
 
-- Remove rare words with occurences < 5 using lambda function inside a `.filter()` method. 
+- Remove rare words with occurences < 5 using lambda function inside a `.filter()` method 
 
 
 ```python
@@ -524,7 +515,8 @@ freqWords.take(10)
 
 Add a filtering step to retain only words included in a list of stop words. 
 
-Stop words can be useful for recognizing the style of an author. Removing stop words can be useful in recognizing the topic of a document. For stop word removal, we use the `RDD.filter(func)` again with a lambda function that uses a list of stop words to extract the key-value pairs for only the words that are present in the stop word list. Use a simple list like the one shown below:
+Stop words can be useful for recognizing the style of an author. Removing stop words can be useful in recognizing the topic of a document. For stop word removal, we use `RDD.filter(func)` again with a lambda function that uses a list of stop words to extract the key-value pairs for only the words that are present in the stop word list. Use a simple list like the one shown below: 
+
 > ['', 'the','a','in','of','on','at','for','by','I','you','me'] 
 
 
@@ -647,7 +639,7 @@ output
 
 ### Putting it all together 
 
-Combine the above code as a function and pass three works of Shakespeare (romeandjuliet.txt, hamlet.txt, othello.txt). Observe the frequency of stop words. Repeat the same exercise for three works of Jane Austin (senseandsensibility.txt, prideandprejudice.txt and emma.txt). 
+Combine the above code as a function and pass three works of Shakespeare (`'romeandjuliet.txt'`, `'hamlet.txt'`, `'othello.txt'`). Observe the frequency of stop words. Repeat the same exercise for three works of Jane Austin (`'senseandsensibility.txt'`, `'prideandprejudice.txt'` and `'emma.txt'`). 
 
 > Can you recognize the writing styles of these authors based on their use of stop words?
 > What can you do to improve the style recognition ability?
@@ -675,12 +667,11 @@ def wordCount(filename, stopWordlist):
     return output
 ```
 
-## Level Up
+## Level Up (Optional)
 
 * Create histograms of the top 50 words from each author
 
 
 ## Summary 
 
-In this simple exercise, we saw Map-Reduce in action for solving a basic NLP task i.e. counting the frequency of stop words and keep words of a text corpus. This exercise can be seen as a first step towards text analytics on big data platforms. After this lab, we will get into more advanced use cases of pyspark, specifically for machine learning applications.
-
+In this simple exercise, we saw MapReduce in action for solving a basic NLP task, i.e. counting the frequency of stop words and keep words of a text corpus. This exercise can be seen as a first step towards text analytics on big data platforms. After this lab, we will get into more advanced use cases of PySpark, specifically for machine learning applications. 
