@@ -61,7 +61,7 @@ Here are the steps that we will perform for our problem, under the MapReduce fra
    * Our final result will be a list of tuples containing the top 10 words and their frequencies
 
 As a reminder, here is what it looks like visually, given the example we used before:
-![](./images/word_count.png)
+![](./images/MapReduceZooExample.drawio.png)
 
 ### Initialize SparkContext
 
