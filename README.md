@@ -244,7 +244,7 @@ The Reduce step's argument is a pair consisting of a key and its list of associa
 We will refer to the application of the Reduce step to a single key and its associated list of values as a reducer.
 
 * Use `RDD.reduceByKey()` ([documentation here](https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.RDD.reduceByKey.html)) to add up all the words.
-* For this method, the lambda has two arguments (`x` and `y`) instead of just `x`. `x` will be the word and `y` will be the count.
+* For this method, the lambda has two arguments (`x` and `y`) instead of just `x`. We have two variables here because we're talking about a binary *reduce* function, which must in addition be commutative and associative.
 * The new (key, value) pairs would have the word as a key and the number of occurrences as a value. 
 
 
