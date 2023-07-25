@@ -66,6 +66,7 @@ As a reminder, here is what it looks like visually, given the example we used be
 ### Initialize SparkContext
 
 - First, import the `pyspark` module into this Python environment and initialize a SparkContext with the conventional name `sc`
+- You'll get an informational comment from PySpark regarding log settings, which is nothing to worry about
 - SparkContext should be local (standalone cluster)
 
 
